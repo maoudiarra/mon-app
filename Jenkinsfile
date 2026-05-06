@@ -1,11 +1,20 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20-alpine'
+        }
+    }
 
     stages {
-        stage('Build with Docker') {
+        stage('Install') {
             steps {
-                sh 'docker run --rm -v $PWD:/app -w /app node:20-alpine npm install'
-                sh 'docker run --rm -v $PWD:/app -w /app node:20-alpine npm run build'
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
             }
         }
     }
