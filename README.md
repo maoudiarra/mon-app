@@ -1,36 +1,194 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Atelier Pipeline as Code
 
-## Getting Started
+## 📖 Description
 
-First, run the development server:
+Projet réalisé dans le cadre du module **Pipeline as Code** à l'EPSI.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+L'objectif de cet atelier est de mettre en place une chaîne complète d'intégration et de déploiement continus (CI/CD) en utilisant :
+
+- GitHub
+- Jenkins
+- Docker
+- Next.js
+- GitHub Pages
+- Webhooks GitHub
+
+---
+
+## 👨‍🎓 Étudiant
+
+**Nom :** Maou DIARRA
+
+**Formation :** Master Ingénierie des Données - EPSI
+
+---
+
+## 🏗️ Architecture du projet
+
+```text
+GitHub
+   ↓
+Webhook GitHub
+   ↓
+Jenkins
+   ↓
+Docker (Node.js 20)
+   ↓
+Build Next.js
+   ↓
+GitHub Pages
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Fonctionnement du pipeline
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le pipeline Jenkins est défini dans un fichier `Jenkinsfile` versionné dans GitHub.
 
-## Learn More
+### Étape 1 : Installation
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm ci
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Installation des dépendances du projet.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Étape 2 : Build
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Compilation de l'application Next.js et génération du site statique.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Étape 3 : Déploiement
+
+Le contenu du dossier `out/` est automatiquement publié sur la branche :
+
+```text
+gh-pages
+```
+
+GitHub Pages publie ensuite le site web.
+
+---
+
+## 🐳 Utilisation de Docker
+
+Le pipeline s'exécute dans un conteneur Docker :
+
+```groovy
+agent {
+    docker {
+        image 'node:20-alpine'
+    }
+}
+```
+
+Cela garantit un environnement d'exécution reproductible et indépendant de la machine hôte.
+
+---
+
+## 📂 Dépôt GitHub
+
+Dépôt du projet :
+
+```text
+https://github.com/maoudiarra/mon-app
+```
+
+---
+
+## 🌐 Site Web Déployé
+
+Le site est accessible à l'adresse suivante :
+
+```text
+https://maoudiarra.github.io/mon-app/
+```
+
+---
+
+## 🔄 Déclenchement Automatique
+
+Un webhook GitHub a été configuré afin de déclencher automatiquement Jenkins lors d'un push sur le dépôt.
+
+À chaque modification :
+
+1. Push vers GitHub
+2. GitHub envoie un webhook
+3. Jenkins démarre automatiquement
+4. Build de l'application
+5. Déploiement GitHub Pages
+6. Mise à jour du site web
+
+---
+
+## 📸 Captures d'écran
+
+### Jenkins - Build SUCCESS
+
+![Jenkins Success](captures/01-jenkins-success.png)
+
+### Jenkinsfile dans GitHub
+
+![Jenkinsfile](captures/02-jenkinsfile.png)
+
+### Configuration GitHub Pages
+
+![GitHub Pages](captures/03-github-pages.png)
+
+### Site Web Déployé
+
+![Site Web](captures/04-site-web.png)
+
+### Configuration du Webhook GitHub
+
+![Webhook](captures/05-webhook.png)
+
+### Déclenchement Automatique Jenkins
+
+![Webhook Trigger](captures/06-auto-build.png)
+
+---
+
+## ✅ Résultats obtenus
+
+- Jenkins Pipeline as Code
+- Jenkinsfile versionné dans GitHub
+- Exécution dans Docker
+- Build automatique Next.js
+- Déploiement automatique GitHub Pages
+- Site accessible publiquement
+- Webhook GitHub → Jenkins
+- Déclenchement automatique après chaque push
+- Mise en place d'une chaîne CI/CD complète
+
+---
+
+## 🛠️ Technologies utilisées
+
+- Git
+- GitHub
+- GitHub Pages
+- Jenkins
+- Docker
+- Node.js 20
+- Next.js 16
+- Ngrok
+
+---
+
+## 🎯 Conclusion
+
+Ce projet a permis de mettre en œuvre une chaîne CI/CD complète reposant sur Jenkins, Docker et GitHub Pages.
+
+L'intégralité du processus de compilation et de déploiement est automatisée. Un simple push GitHub déclenche automatiquement la reconstruction et la publication du site web.
+
+---
+
+## 👤 Auteur
+
+**Maou DIARRA**
+
+EPSI - Master Ingénierie des Données
