@@ -24,5 +24,15 @@ pipeline {
                 sh 'ls -la out'
             }
         }
+
+        stage('Deploy Test') {
+            steps {
+                sh '''
+                cd out
+                touch .nojekyll
+                ls -la
+                '''
+            }
+        }
     }
 }
