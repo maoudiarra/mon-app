@@ -3,7 +3,7 @@ export default function Home() {
     <main style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Hello EPSI 🚀</h1>
       <p>Projet Pipeline as Code</p>
-      <p>Nom : Ton prénom</p>
+      <p>Nom : Maou DIARRA</p>
     </main>
   );
 }
